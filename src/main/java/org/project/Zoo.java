@@ -2,10 +2,14 @@ package org.project;
 
 import javax.management.openmbean.TabularData;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Zoo {
     private ArrayList<Animal> animals;
     private ArrayList<Supervisor> supervisors;
+    // hash map
+    private HashMap<Integer, Animal> animalMap;
+    private HashMap<Integer, Supervisor> supervisorMap;
     private ArrayList<SupervisorChangesListener>  supervisorChangesListeners;
 
     //Constructor
@@ -13,11 +17,24 @@ public class Zoo {
         animals = new ArrayList<Animal>();
         supervisors = new ArrayList<Supervisor>();
         supervisorChangesListeners = new ArrayList<SupervisorChangesListener>();
+
+        animalMap = new HashMap<>();
+        supervisorMap = new HashMap<>();
+
     }
     public Zoo(ArrayList<Animal> given_animals) {
         animals = given_animals;
         supervisors = new ArrayList<Supervisor>();
         supervisorChangesListeners = new ArrayList<SupervisorChangesListener>();
+        // initialize HashMaps
+        animalMap = new HashMap<>();
+        supervisorMap = new HashMap<>();
+        // preload existing animals into the hash map
+        if (given_animals != null) {
+            for (Animal a : given_animals) {
+                animalMap.put(a.getId(), a);
+            }
+        }
     }
 
     // Observer

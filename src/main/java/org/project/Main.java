@@ -68,6 +68,21 @@ public class Main {
         for (Animal a : zoo.getAnimalsByClass("Cat")) {
             System.out.println(a);
         }
+
+
+        //Hash map speed test
+        System.out.println("\nHashMap speed test");
+
+        int bigCount = 100_000;
+        for (int i = 0; i < bigCount; i++) {
+            zoo.addAnimal(new Cat(200 + i, 0.3));
+        }
+
+        long t1 = System.nanoTime();
+        zoo.findAnimal(200 + bigCount - 1);
+        long t2 = System.nanoTime();
+
+        System.out.println("Time to find animal among " + bigCount + " entries: " + (t2 - t1) / 1_000_000.0 + " ms (O(1) lookup using HashMap)");
     }
 }
 
